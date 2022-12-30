@@ -122,7 +122,7 @@ impl Board {
     pub fn r#move(&mut self, m: String) -> Result<String, MoveError> {
         if m == "Nf3".to_string() {
             self.f[2] = Some((Piece::Knight, Player::White));
-            self.b[0] = None;
+            self.g[0] = None;
         }
         Ok("Nf3".to_string())
     }
