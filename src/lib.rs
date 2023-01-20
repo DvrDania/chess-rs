@@ -1,8 +1,10 @@
 pub mod parser;
 
-use parser::ParseError;
+use parser::ParseSquareError;
 
+#[derive(Debug, PartialEq)]
 struct Square(char, u8);
+struct Move;
 
 #[derive(Debug)]
 pub enum Piece {
@@ -17,10 +19,6 @@ pub enum Piece {
 pub enum Player {
     White,
     Black,
-}
-pub enum MoveError {
-    IllegalMove,
-    SquareOccupied,
 }
 
 pub struct Board {
@@ -118,15 +116,10 @@ impl Board {
             ],
         }
     }
-    // TODO: take a better type
-    pub fn r#move(&mut self, m: String) -> Result<String, MoveError> {
-        if m == "Nf3".to_string() {
-            self.f[2] = Some((Piece::Knight, Player::White));
-            self.g[0] = None;
-        }
-        Ok("Nf3".to_string())
+    pub fn make_move(&mut self, m: &str) -> Result<&str, ()> {
+        todo!()
     }
-    pub fn check_square(&self, sq: String) -> Result<Option<&(Piece, Player)>, ParseError> {
+    pub fn check_square(&self, sq: &str) -> Result<Option<&(Piece, Player)>, ParseSquareError> {
         match sq.parse() {
             Ok(square) => match square {
                 Square('a', i) => return Ok(self.a[(i - 1) as usize].as_ref()),
